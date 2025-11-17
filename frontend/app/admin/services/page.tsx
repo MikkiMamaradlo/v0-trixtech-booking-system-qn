@@ -142,7 +142,7 @@ export default function AdminServices() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-2">Price ($)</label>
+                <label className="block text-sm font-medium mb-2">Price (₱)</label>
                 <input
                   type="number"
                   value={formData.price}
@@ -197,7 +197,7 @@ export default function AdminServices() {
                 <div className="flex gap-6 mt-4 text-sm">
                   <span>Category: <span className="font-semibold capitalize">{service.category}</span></span>
                   <span>Duration: <span className="font-semibold">{service.duration} min</span></span>
-                  <span>Price: <span className="font-semibold text-[var(--primary)]">${service.price}</span></span>
+                  <span>Price: <span className="font-semibold text-[var(--primary)]">₱{service.price}</span></span>
                 </div>
               </div>
               <button

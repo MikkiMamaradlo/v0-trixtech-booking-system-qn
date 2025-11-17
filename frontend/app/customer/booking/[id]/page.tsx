@@ -2,6 +2,7 @@
 
 import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import ReviewSection from '../../components/ReviewSection';
 
 interface Service {
   _id: string;
@@ -101,7 +102,7 @@ export default function BookingPage() {
             </div>
             <div className="flex justify-between pb-3 border-b border-[var(--border)]">
               <span className="text-[var(--muted)]">Price:</span>
-              <span className="text-[var(--primary)] font-bold">${service.price}</span>
+              <span className="text-[var(--primary)] font-bold">₱{service.price}</span>
             </div>
           </div>
         </div>
@@ -139,6 +140,12 @@ export default function BookingPage() {
             </button>
           </form>
         </div>
+      </div>
+
+      {/* Reviews Section */}
+      <div className="mt-12">
+        <h2 className="section-title mb-6">Customer Reviews</h2>
+        <ReviewSection serviceId={serviceId} />
       </div>
     </div>
   );

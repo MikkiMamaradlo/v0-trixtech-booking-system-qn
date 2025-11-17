@@ -7,6 +7,9 @@ const serviceRoutes = require('./routes/serviceRoutes');
 const bookingRoutes = require('./routes/bookingRoutes');
 const userRoutes = require('./routes/userRoutes');
 const analyticsRoutes = require('./routes/analyticsRoutes');
+const reviewRoutes = require('./routes/reviewRoutes');
+const exportRoutes = require('./routes/exportRoutes');
+const loyaltyRoutes = require('./routes/loyaltyRoutes');
 const { initializeEmailService } = require('./utils/emailService');
 const { errorHandler } = require('./middleware/errorHandler');
 
@@ -29,6 +32,9 @@ app.use('/api/services', serviceRoutes);
 app.use('/api/bookings', bookingRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/analytics', analyticsRoutes);
+app.use('/api/reviews', reviewRoutes);
+app.use('/api/export', exportRoutes);
+app.use('/api/loyalty', loyaltyRoutes);
 
 // Health check
 app.get('/api/health', (req, res) => {

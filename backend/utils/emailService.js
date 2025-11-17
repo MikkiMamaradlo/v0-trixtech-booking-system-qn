@@ -36,7 +36,7 @@ const sendBookingConfirmation = async (email, bookingDetails) => {
       <p><strong>Service:</strong> ${bookingDetails.serviceName}</p>
       <p><strong>Date:</strong> ${new Date(bookingDetails.date).toLocaleDateString()}</p>
       <p><strong>Time:</strong> ${bookingDetails.time}</p>
-      <p><strong>Price:</strong> $${bookingDetails.price}</p>
+      <p><strong>Price:</strong> ₱${bookingDetails.price}</p>
       <p>Thank you for booking with TRIXTECH!</p>
     `,
   };

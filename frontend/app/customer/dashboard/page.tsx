@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import LoyaltyCard from '../components/LoyaltyCard';
 
 interface User {
   id: string;
@@ -114,11 +115,17 @@ export default function CustomerDashboard() {
         </div>
         <div className="stat-box">
           <div className="stat-label">Total Spent</div>
-          <div className="stat-value text-[var(--primary)]">${stats.totalSpent.toFixed(2)}</div>
+          <div className="stat-value text-[var(--primary)]">₱{stats.totalSpent.toFixed(2)}</div>
         </div>
       </div>
 
-      {/* Recent Bookings */}
+      {/* Loyalty Program */}
+      <div className="grid md:grid-cols-3 gap-6">
+        <div className="md:col-span-1">
+          <LoyaltyCard />
+        </div>
+        <div className="md:col-span-2">
+          {/* Recent Bookings */}
       <div className="card p-6">
         <div className="flex justify-between items-center mb-6">
           <h2 className="section-title mb-0">Recent Bookings</h2>
@@ -138,7 +145,7 @@ export default function CustomerDashboard() {
                   <span className={`badge ${booking.status === 'confirmed' ? 'badge-success' : booking.status === 'completed' ? 'badge-primary' : 'badge-warning'}`}>
                     {booking.status}
                   </span>
-                  <p className="font-semibold text-[var(--primary)]">${booking.totalPrice}</p>
+                  <p className="font-semibold text-[var(--primary)]">₱{booking.totalPrice}</p>
                 </div>
               </div>
             ))}
@@ -146,6 +153,8 @@ export default function CustomerDashboard() {
         ) : (
           <p className="text-[var(--muted)] text-center py-8">No bookings yet</p>
         )}
+      </div>
+        </div>
       </div>
 
       {/* Quick Actions */}

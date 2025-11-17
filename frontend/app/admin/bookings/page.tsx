@@ -104,7 +104,7 @@ export default function AdminBookings() {
                 </td>
                 <td className="px-6 py-3">{booking.serviceId.name}</td>
                 <td className="px-6 py-3 text-sm">{new Date(booking.bookingDate).toLocaleDateString()}</td>
-                <td className="px-6 py-3 font-semibold">${booking.totalPrice}</td>
+                <td className="px-6 py-3 font-semibold">₱{booking.totalPrice}</td>
                 <td className="px-6 py-3">
                   <select
                     value={booking.status}

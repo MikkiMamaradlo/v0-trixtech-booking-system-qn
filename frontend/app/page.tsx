@@ -7,11 +7,16 @@ import { useEffect, useState } from 'react';
 export default function Home() {
   const router = useRouter();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
     const role = localStorage.getItem('role');
     setIsLoggedIn(!!token);
+
+    // Simulate loading for better UX
+    setTimeout(() => setIsLoading(false), 500);
 
     if (token && role === 'admin') {
       router.push('/admin/dashboard');

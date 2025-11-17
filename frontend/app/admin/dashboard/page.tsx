@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import ExportTools from '../components/ExportTools';
 
 export default function AdminDashboard() {
   const router = useRouter();
@@ -70,6 +71,34 @@ export default function AdminDashboard() {
     );
   }
 
+  const handleExport = async (type: string, format: string) => {
+    const token = localStorage.getItem('token');
+    if (!token) return;
+
+    try {
+      const response = await fetch(`/api/export/${type}/${format}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      if (response.ok) {
+        // Create download link
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `${type}.${format}`;
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+      } else {
+        console.error('Export failed');
+      }
+    } catch (error) {
+      console.error('Export error:', error);
+    }
+  };
+
   return (
     <div className="space-y-8">
       {/* Header */}
@@ -94,7 +123,7 @@ export default function AdminDashboard() {
         </div>
         <div className="stat-box">
           <div className="stat-label">Total Revenue</div>
-          <div className="stat-value text-[var(--success)]">${stats.revenue.toFixed(2)}</div>
+          <div className="stat-value text-[var(--success)]">₱{stats.revenue.toFixed(2)}</div>
         </div>
       </div>
 
@@ -143,7 +172,7 @@ export default function AdminDashboard() {
                         {booking.status}
                       </span>
                     </td>
-                    <td className="py-3 px-4 text-right font-semibold text-[var(--primary)]">${booking.totalPrice}</td>
+                    <td className="py-3 px-4 text-right font-semibold text-[var(--primary)]">₱{booking.totalPrice}</td>
                   </tr>
                 ))}
               </tbody>
@@ -153,6 +182,9 @@ export default function AdminDashboard() {
           <p className="text-[var(--muted)] text-center py-8">No bookings yet</p>
         )}
       </div>
+
+      {/* Export Tools */}
+      <ExportTools onExport={handleExport} />
     </div>
   );
 }

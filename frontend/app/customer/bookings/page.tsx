@@ -74,7 +74,7 @@ export default function Bookings() {
                   </p>
                 </div>
                 <div className="text-right">
-                  <p className="text-2xl font-bold text-[var(--primary)]">${booking.totalPrice}</p>
+                  <p className="text-2xl font-bold text-[var(--primary)]">₱{booking.totalPrice}</p>
                   <span className={`inline-block px-3 py-1 rounded-full text-sm font-semibold mt-2 ${getStatusColor(booking.status)}`}>
                     {booking.status}
                   </span>

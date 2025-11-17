@@ -1,6 +1,7 @@
 const express = require('express');
 const Booking = require('../models/Booking');
 const Service = require('../models/Service');
+const Loyalty = require('../models/Loyalty');
 const { authMiddleware, adminMiddleware } = require('../middleware/auth');
 
 const router = express.Router();
@@ -79,14 +80,42 @@ router.put('/:id', adminMiddleware, async (req, res, next) => {
   try {
     const { status, paymentStatus } = req.body;
 
-    const booking = await Booking.findByIdAndUpdate(
-      req.params.id,
-      { status, paymentStatus },
-      { new: true }
-    ).populate('serviceId');
-
+    const booking = await Booking.findById(req.params.id).populate('serviceId');
     if (!booking) {
       return res.status(404).json({ success: false, message: 'Booking not found' });
+    }
+
+    const oldStatus = booking.status;
+    booking.status = status;
+    if (paymentStatus) booking.paymentStatus = paymentStatus;
+
+    await booking.save();
+    await booking.populate('serviceId');
+
+    // Award loyalty points if booking is completed
+    if (status === 'completed' && oldStatus !== 'completed') {
+      try {
+        let loyalty = await Loyalty.findOne({ userId: booking.customerId });
+        if (!loyalty) {
+          loyalty = new Loyalty({ userId: booking.customerId });
+        }
+
+        const pointsEarned = loyalty.addPoints(booking.totalPrice);
+        await loyalty.save();
+
+        // Check for tier-based rewards
+        const tierBenefits = Loyalty.getTierBenefits(loyalty.tier);
+        if (loyalty.bookingsCount % 10 === 0 && loyalty.tier === 'gold') {
+          loyalty.addReward('free_service', 'free_booking', 'Free service for reaching 10 bookings as Gold member');
+        } else if (loyalty.bookingsCount % 5 === 0 && loyalty.tier === 'platinum') {
+          loyalty.addReward('free_service', 'free_booking', 'Free service for reaching 5 bookings as Platinum member');
+        }
+
+        await loyalty.save();
+      } catch (loyaltyError) {
+        console.error('Loyalty points error:', loyaltyError);
+        // Don't fail the booking update if loyalty fails
+      }
     }
 
     res.json({ success: true, booking });

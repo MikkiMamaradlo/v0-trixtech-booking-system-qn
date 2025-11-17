@@ -3,18 +3,28 @@
 @tailwind utilities;
 
 :root {
-  --background: #f8f9fa;
+  --background: #fafafa;
   --foreground: #1a1a1a;
-  --primary: #7c3aed;
-  --primary-light: #a78bfa;
-  --primary-dark: #6d28d9;
-  --accent: #ec4899;
-  --accent-light: #f472b6;
-  --success: #10b981;
-  --warning: #f59e0b;
-  --danger: #ef4444;
+  --primary: #2563eb;
+  --primary-light: #3b82f6;
+  --primary-dark: #1d4ed8;
+  --accent: #f59e0b;
+  --accent-light: #fbbf24;
+  --success: #059669;
+  --warning: #d97706;
+  --danger: #dc2626;
   --border: #e5e7eb;
   --muted: #6b7280;
+  --muted-foreground: #9ca3af;
+  --card: #ffffff;
+  --card-foreground: #1a1a1a;
+  --popover: #ffffff;
+  --popover-foreground: #1a1a1a;
+  --secondary: #f3f4f6;
+  --secondary-foreground: #374151;
+  --input: #ffffff;
+  --ring: #2563eb;
+  --radius: 0.5rem;
 }
 
 * {
@@ -32,33 +42,33 @@ body {
 
 /* Buttons */
 .btn-primary {
-  @apply bg-[var(--primary)] text-white px-4 py-2.5 rounded-lg font-semibold hover:bg-[var(--primary-dark)] active:scale-95 transition-all shadow-sm hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed;
+  @apply bg-[var(--primary)] text-white px-6 py-3 rounded-xl font-semibold hover:bg-[var(--primary-dark)] active:scale-95 transition-all duration-200 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed;
 }
 
 .btn-secondary {
-  @apply border-2 border-[var(--primary)] text-[var(--primary)] px-4 py-2.5 rounded-lg font-semibold hover:bg-[var(--primary)] hover:text-white active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed;
+  @apply border-2 border-[var(--primary)] text-[var(--primary)] px-6 py-3 rounded-xl font-semibold hover:bg-[var(--primary)] hover:text-white active:scale-95 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed;
 }
 
 .btn-danger {
-  @apply bg-[var(--danger)] text-white px-4 py-2.5 rounded-lg font-semibold hover:bg-red-600 active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed;
+  @apply bg-[var(--danger)] text-white px-6 py-3 rounded-xl font-semibold hover:bg-red-600 active:scale-95 transition-all duration-200 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed;
 }
 
 .btn-ghost {
-  @apply text-[var(--primary)] hover:bg-purple-50 px-4 py-2.5 rounded-lg font-semibold transition-all;
+  @apply text-[var(--primary)] hover:bg-blue-50 px-6 py-3 rounded-xl font-semibold transition-all duration-200;
 }
 
 /* Cards */
 .card {
-  @apply bg-white border border-[var(--border)] rounded-lg shadow-sm hover:shadow-md transition-shadow;
+  @apply bg-white border border-[var(--border)] rounded-xl shadow-sm hover:shadow-lg transition-all duration-200;
 }
 
 .card-hover {
-  @apply card cursor-pointer hover:border-purple-300;
+  @apply card cursor-pointer hover:border-blue-300 hover:shadow-xl hover:-translate-y-1 transition-all duration-200;
 }
 
 /* Form elements */
 .input-field {
-  @apply w-full px-4 py-2.5 border border-[var(--border)] rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-200 focus:border-[var(--primary)] bg-white transition-all;
+  @apply w-full px-4 py-3 border border-[var(--border)] rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-200 focus:border-[var(--primary)] bg-white transition-all duration-200 shadow-sm focus:shadow-md;
 }
 
 .input-field::placeholder {
@@ -66,42 +76,42 @@ body {
 }
 
 .input-field:disabled {
-  @apply bg-gray-50 cursor-not-allowed;
+  @apply bg-gray-50 cursor-not-allowed opacity-60;
 }
 
 /* Utilities */
 .badge {
-  @apply inline-flex items-center px-3 py-1 rounded-full text-sm font-medium;
+  @apply inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium shadow-sm;
 }
 
 .badge-primary {
-  @apply badge bg-purple-50 text-[var(--primary)];
+  @apply badge bg-blue-50 text-[var(--primary)] border border-blue-200;
 }
 
 .badge-success {
-  @apply badge bg-green-50 text-[var(--success)];
+  @apply badge bg-green-50 text-[var(--success)] border border-green-200;
 }
 
 .badge-warning {
-  @apply badge bg-yellow-50 text-[var(--warning)];
+  @apply badge bg-yellow-50 text-[var(--warning)] border border-yellow-200;
 }
 
 .badge-danger {
-  @apply badge bg-red-50 text-[var(--danger)];
+  @apply badge bg-red-50 text-[var(--danger)] border border-red-200;
 }
 
 .stat-box {
-  @apply card p-6 space-y-2;
+  @apply card p-6 space-y-3 bg-gradient-to-br from-white to-gray-50;
 }
 
 .stat-label {
-  @apply text-[var(--muted)] text-sm font-medium;
+  @apply text-[var(--muted)] text-sm font-medium uppercase tracking-wide;
 }
 
 .stat-value {
-  @apply text-3xl font-bold text-[var(--primary)];
+  @apply text-4xl font-bold text-[var(--primary)] bg-gradient-to-r from-[var(--primary)] to-[var(--primary-dark)] bg-clip-text text-transparent;
 }
 
 .section-title {
-  @apply text-2xl font-bold text-[var(--foreground)] mb-4;
+  @apply text-3xl font-bold text-[var(--foreground)] mb-6 bg-gradient-to-r from-[var(--foreground)] to-[var(--muted-foreground)] bg-clip-text text-transparent;
 }
